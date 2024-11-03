@@ -4,3 +4,5 @@ asyncpg
 pydantic
 pydantic-settings
 python-dotenv
+jinja2
+aiofiles

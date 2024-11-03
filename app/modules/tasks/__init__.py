@@ -80,6 +80,7 @@ class TaskModule(BaseModule):
             conn = Depends(get_connection)
         ):
             service = TaskService(conn)
+            print(status)
             return await service.change_status(task_id, status)
 
     async def init_module(self) -> None:

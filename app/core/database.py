@@ -1,4 +1,6 @@
+# app/core/database.py
 import asyncpg
+from fastapi import Request
 from .config import get_settings
 from typing import AsyncGenerator
 
@@ -12,6 +14,7 @@ async def get_pool() -> asyncpg.Pool:
         database=settings.POSTGRES_DB
     )
 
-async def get_connection() -> AsyncGenerator[asyncpg.Connection, None]:
-    async with app.state.pool.acquire() as conn:
+async def get_connection(request: Request) -> AsyncGenerator[asyncpg.Connection, None]:
+    """Get database connection from pool stored in app state"""
+    async with request.app.state.pool.acquire() as conn:
         yield conn
